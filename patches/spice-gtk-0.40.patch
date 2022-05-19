@@ -1139,3 +1139,72 @@ index 8dccb42..9248aea 100644
 -- 
 2.32.0 (Apple Git-132)
 
+From 526ab0f0950f8071f7c5dda6a49166a86ba29780 Mon Sep 17 00:00:00 2001
+From: osy <osy@turing.llc>
+Date: Thu, 19 May 2022 21:01:29 -0700
+Subject: [PATCH] test libusb
+
+---
+ src/usb-backend.c        | 1 +
+ src/usb-device-manager.c | 5 +++++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/src/usb-backend.c b/src/usb-backend.c
+index 930ae4e..70c9917 100644
+--- a/src/usb-backend.c
++++ b/src/usb-backend.c
+@@ -454,6 +454,7 @@ SpiceUsbBackend *spice_usb_backend_new(GError **error)
+         libusb_set_option(be->libusb_context, LIBUSB_OPTION_USE_USBDK);
+ #endif
+ #endif
++        libusb_set_option(be->libusb_context, LIBUSB_OPTION_LOG_LEVEL, LIBUSB_LOG_LEVEL_DEBUG);
+         /* exclude addresses 0 (reserved) and 1 (root hub) */
+         be->own_devices_mask = 3;
+     }
+diff --git a/src/usb-device-manager.c b/src/usb-device-manager.c
+index c7e1431..a1e6d03 100644
+--- a/src/usb-device-manager.c
++++ b/src/usb-device-manager.c
+@@ -244,6 +244,7 @@ static gboolean spice_usb_device_manager_initable_init(GInitable  *initable,
+         return FALSE;
+     }
+ 
++    SPICE_DEBUG("%s: registering for hotplug", __FUNCTION__);
+     /* Start listening for usb devices plug / unplug */
+     if (!spice_usb_backend_register_hotplug(priv->context, manager,
+                                             spice_usb_device_manager_hotplug_cb,
+@@ -764,6 +765,7 @@ static void spice_usb_device_manager_add_dev(SpiceUsbDeviceManager *manager,
+     const UsbDeviceInformation *b_info = spice_usb_backend_device_get_info(bdev);
+     SpiceUsbDevice *device;
+ 
++    SPICE_DEBUG("%s:%d", __FUNCTION__, __LINE__);
+     if (spice_usb_device_manager_find_device(manager,
+                                              b_info->bus,
+                                              b_info->address)) {
+@@ -775,6 +777,7 @@ static void spice_usb_device_manager_add_dev(SpiceUsbDeviceManager *manager,
+         return;
+     }
+ 
++    SPICE_DEBUG("%s:%d", __FUNCTION__, __LINE__);
+     device = spice_usb_device_new(bdev);
+     if (!device) {
+         return;
+@@ -843,6 +846,7 @@ static gboolean spice_usb_device_manager_hotplug_idle_cb(gpointer user_data)
+     struct hotplug_idle_cb_args *args = user_data;
+     SpiceUsbDeviceManager *manager = SPICE_USB_DEVICE_MANAGER(args->manager);
+ 
++    SPICE_DEBUG("%s: hotplug callback added:%d", __FUNCTION__, args->added);
+     if (args->added) {
+         spice_usb_device_manager_add_dev(manager, args->device);
+     } else {
+@@ -866,6 +870,7 @@ static void spice_usb_device_manager_hotplug_cb(void *user_data,
+     args->manager = g_object_ref(manager);
+     args->device = spice_usb_backend_device_ref(dev);
+     args->added = added;
++    SPICE_DEBUG("%s: queuing hotplug for idle exeuction", __FUNCTION__);
+     g_spice_idle_add(spice_usb_device_manager_hotplug_idle_cb, args);
+ }
+ 
+-- 
+2.32.0 (Apple Git-132)
+

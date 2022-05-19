@@ -4716,6 +4716,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"UTM_APP_GROUP=\"$(TeamIdentifierPrefix)$(PRODUCT_BUNDLE_PREFIX:default=com.utmapp).UTM\"",
 					"$(inherited)",
+					"SPICE_DEBUG_LOGGING=1",
 				);
 				INFOPLIST_FILE = Platform/macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4750,6 +4751,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"UTM_APP_GROUP=\"$(TeamIdentifierPrefix)$(PRODUCT_BUNDLE_PREFIX:default=com.utmapp).UTM\"",
 					"$(inherited)",
+					"SPICE_DEBUG_LOGGING=1",
 				);
 				INFOPLIST_FILE = Platform/macOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

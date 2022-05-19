@@ -62,6 +62,10 @@ class DoubleClickListeningView: NSView {
     override func mouseDown(with event: NSEvent) {
         self.isHidden = true
         super.mouseDown(with: event)
+        if event.modifierFlags.contains(.control) {
+            var newEvent = NSEvent.mouseEvent(with: .rightMouseDown, location: event.locationInWindow, modifierFlags: event.modifierFlags, timestamp: event.timestamp, windowNumber: event.windowNumber, context: event.context, eventNumber: event.eventNumber, clickCount: event.clickCount, pressure: event.pressure)
+            super.rightMouseDown(with: newEvent!)
+        }
         self.isHidden = false
         if event.clickCount == 2 {
             handler()
