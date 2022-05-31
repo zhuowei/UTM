@@ -66,11 +66,9 @@ struct VMConfigQEMUView: View {
                         .help("Should be off for older operating systems such as Windows 7 or lower.")
                     Toggle("RNG Device", isOn: $config.systemRngEnabled)
                         .help("Should be on always unless the guest cannot boot because of this.")
-                    #if os(macOS)
                     Toggle("Use Hypervisor", isOn: $config.useHypervisor)
                         .disabled(!config.isTargetArchitectureMatchHost)
                         .help("Only available if host architecture matches the target. Otherwise, TCG emulation is used.")
-                    #endif
                     Toggle("Use local time for base clock", isOn: $config.rtcUseLocalTime)
                         .help("If checked, use local time for RTC which is required for Windows. Otherwise, use UTC clock.")
                     Toggle("Force PS/2 controller", isOn: $config.forcePs2Controller)

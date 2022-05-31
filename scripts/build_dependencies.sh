@@ -658,7 +658,7 @@ ios* )
         PLATFORM_FAMILY_NAME="$PLATFORM_FAMILY_PREFIX"
         ;;
     esac
-    QEMU_PLATFORM_BUILD_FLAGS="--disable-debug-info --enable-shared-lib --disable-hvf --disable-cocoa --disable-coreaudio --disable-slirp-smbd --enable-ucontext --with-coroutine=libucontext $TCI_BUILD_FLAGS"
+    QEMU_PLATFORM_BUILD_FLAGS="--disable-debug-info --enable-shared-lib --disable-cocoa --disable-coreaudio --disable-slirp-smbd --enable-ucontext --with-coroutine=libucontext $TCI_BUILD_FLAGS"
     ;;
 macos )
     if [ -z "$SDKMINVER" ]; then
@@ -730,6 +730,13 @@ export NM
 export RANLIB
 export STRIP
 export PREFIX
+
+"$BASEDIR/make_fixed_framework.sh"
+CFLAGS="-F$PWD/fixed_framework"
+CPPFLAGS="-F$PWD/fixed_framework"
+CXXFLAGS="-F$PWD/fixed_framework"
+OBJCFLAGS="-F$PWD/fixed_framework"
+LDFLAGS="-F$PWD/fixed_framework"
 
 # Flags
 CFLAGS="$CFLAGS -arch $ARCH -isysroot $SDKROOT -I$PREFIX/include $CFLAGS_MINVER $CFLAGS_TARGET"

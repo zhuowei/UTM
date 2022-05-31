@@ -26,8 +26,8 @@ jobs:
     runs-on: macos-12
     strategy:
       matrix:
-        arch: [arm64, x86_64]
-        platform: [ios, ios_simulator, ios-tci, macos]
+        arch: [arm64]
+        platform: [ios]
         exclude:
           - arch: x86_64
             platform: ios
