@@ -8,5 +8,13 @@
 	<true/>
 	<key>com.apple.private.hypervisor</key>
 	<true/>
+	<key>com.apple.security.exception.mach-lookup.global-name</key>
+	<array>
+		<string>com.worthdoingbadly.hypervisor</string>
+	</array>
+	<key>com.apple.security.exception.files.absolute-path.read-only</key>
+	<array>
+		<string>/private/var/tmp/zhuowei_portinfo</string>
+	</array>
 </dict>
 </plist>

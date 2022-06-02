@@ -10,6 +10,6 @@ do
 	sed -e "s/API_UNAVAILABLE(ios)/API_AVAILABLE(ios(14.0))/g" "$i" >"fixed_framework/Hypervisor.framework/Headers/$(basename "$i")"
 done
 sed -i "" \
-	-e "s@/System/Library/Frameworks/Hypervisor.framework/Versions/A/Hypervisor@/usr/local/zhuowei/Hypervisor@" \
+	-e "s@/System/Library/Frameworks/Hypervisor.framework/Versions/A/Hypervisor@/usr/lib/zhuowei/Hypervisor@" \
 	-e "s/-macos/-ios/g" \
 	fixed_framework/Hypervisor.framework/Versions/A/Hypervisor.tbd
