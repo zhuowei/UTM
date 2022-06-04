@@ -731,6 +731,7 @@ export RANLIB
 export STRIP
 export PREFIX
 
+# Create Hypervisor.framework
 "$BASEDIR/make_fixed_framework.sh"
 CFLAGS="-F$PWD/fixed_framework"
 CPPFLAGS="-F$PWD/fixed_framework"
